@@ -24,10 +24,10 @@ data TuringMachine q s = TuringMachine {
 ```
 ## Functions
 ### (>>>)
+Run Turing machine to calculate.
 ```haskell
 (>>>) :: [s] -> TuringMachine q s -> Maybe [s]
 ```
-Run Turing machine to calculate.
 #### Example
 Add two numbers in base-1.
 ```haskell
@@ -41,12 +41,17 @@ addTM = TuringMachine "q0" 0 ["qf"] delta
 		delta ("q2",1) = Just ("qf",0,L)
 		delta _ = Nothing
 ```
+```
+[0,1,1,1] >>> addTM = [1,1,1]
+[1,1,0,1] >>> addTM = [1,1,1]
+[1,1,0,1,1,1] >>> addTM = [1,1,1,1,1]
+```
 
 ### (>?>)
+Run Turing machine to recognise.
 ```haskell
 (>?>) :: [s] -> TuringMachine q s -> Bool
 ```
-Run Turing machine to recognise.
 #### Example
 Even number of occurrences of some element.
 ```haskell
@@ -60,4 +65,9 @@ evenTM n = TuringMachine "q0" minBound ["qf"] delta
 		                 else if x == minBound then Nothing
 		                 else Just ("q1",x,R)
 		delta _ = Nothing
+```
+```
+"cabababac" >?> evenTM 'a' = True
+"cabababac" >?> evenTM 'b' = False
+"cabababac" >?> evenTM 'c' = True
 ```
