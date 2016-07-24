@@ -7,7 +7,7 @@
     Stability   : experimental
     Portability : portable
     Website     : http://riazavalverde.com
-    GitHub      : https://github.com/jariazavalverde/automaton.turingmachine
+    GitHub      : https://github.com/jariazavalverde/hackage-turing-machines
 
     A Turing machine is an abstract machine that manipulates symbols
     on a strip of tape according to a table of rules.
