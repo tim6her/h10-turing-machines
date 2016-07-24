@@ -26,7 +26,7 @@ data TuringMachine q s = TuringMachine {
 ### (>>>)
 Run Turing machine to calculate.
 ```haskell
-(>>>) :: [s] -> TuringMachine q s -> Maybe [s]
+(>>>) :: (Eq q, Eq s) => [s] -> TuringMachine q s -> Maybe [s]
 ```
 #### Example
 Add two numbers in base-1.
@@ -50,7 +50,7 @@ addTM = TuringMachine "q0" 0 ["qf"] delta
 ### (>?>)
 Run Turing machine to recognise.
 ```haskell
-(>?>) :: [s] -> TuringMachine q s -> Bool
+(>?>) :: (Eq q, Eq s) => [s] -> TuringMachine q s -> Bool
 ```
 #### Example
 Even number of occurrences of some element.
