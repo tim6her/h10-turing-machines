@@ -28,8 +28,7 @@ Run Turing machine to calculate.
 ```haskell
 (>>>) :: (Eq q, Eq s) => [s] -> TuringMachine q s -> Maybe [s]
 ```
-#### Example
-Add two numbers in base-1.
+#### Example: add two numbers in base-1
 ```haskell
 addTM :: TuringMachine String Int
 addTM = TuringMachine "q0" 0 ["qf"] delta
@@ -52,8 +51,7 @@ Run Turing machine to recognise.
 ```haskell
 (>?>) :: (Eq q, Eq s) => [s] -> TuringMachine q s -> Bool
 ```
-#### Example
-Even number of occurrences of some element.
+#### Example: even number of occurrences of some element
 ```haskell
 evenTM :: (Eq a, Bounded a, Enum a) =>  a -> TuringMachine String a
 evenTM n = TuringMachine "q0" minBound ["qf"] delta
