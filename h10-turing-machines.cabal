@@ -73,7 +73,6 @@ Test-Suite test-melody
   main-is:            Main.hs
   hs-source-dirs:     test
   build-depends:      base >=4.10 && <4.11,
-                      test-framework,
-                      test-framework-hunit,
-                      HUnit,
+                      tasty,
+                      tasty-hunit,
                       h10-turing-machines

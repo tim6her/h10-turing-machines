@@ -1,13 +1,12 @@
 {-|
     Module      : Automaton.TuringMachine
     Description : Turing Machines
-    Copyright   : (c) Jose Antonio Riaza Valverde, 2016
+    Copyright   : (c) Tim B. Herbstrith, 2018
     License     : MIT license
-    Maintainer  : riazavalverde@gmail.com
+    Maintainer  : tim6her
     Stability   : experimental
     Portability : portable
-    Website     : http://riazavalverde.com
-    GitHub      : https://github.com/jariazavalverde/hackage-turing-machines
+    GitHub      : https://github.com/tim6her/h10-turing-machines
 
     A Turing machine is an abstract machine that manipulates symbols
     on a strip of tape according to a table of rules.
@@ -17,11 +16,12 @@ module Automaton.TuringMachine (
   TuringMachine(..),
   Transition,
   TapeMovement,
+  toTransition,
   (>>>),
   (>?>)
 ) where
 
-
+import Control.Exception
 
 -- | DATA STRUCTURES AND TYPES
 
@@ -39,6 +39,9 @@ data TuringMachine q s = TuringMachine {
   getFinalState :: q,
   getTransition :: Transition q s
 }
+
+toTransition :: (q -> s -> (q, s, TapeMovement)) -> Transition q s
+toTransition f state char = Just (f state char)
 
 -- | RUN
 
@@ -61,7 +64,8 @@ input >>> machine = run machine (getInitialState machine) [] input
       -- Tape to left
       else if move == (-1) then run machine q' ps (p:s':ns)
       -- Tape doesn't move
-      else run machine q' (p:ps) (s':ns)
+      else if move == 0 then run machine q' (p:ps) (s':ns)
+      else Nothing
 
 -- | Recognize
 (>?>) :: (Eq q, Eq s) => [s] -> TuringMachine q s -> Bool

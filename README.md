@@ -1,5 +1,7 @@
-# hackage-turing-machines
-A simple simulator for Turing machines
+# h10-turing-machines
+A simple simulator for Turing machines based on [hackage-turing-machines](https://github.com/jariazavalverde/hackage-turing-machines)
+
+<!--
 
 ## Install
 ```
@@ -57,7 +59,7 @@ evenTM :: (Eq a, Bounded a, Enum a) =>  a -> TuringMachine String a
 evenTM n = TuringMachine "q0" minBound ["qf"] delta
 	where
 		delta ("q0",x) = if x == n then Just ("q1",n,R)
-		                 else if x == minBound then Just ("qf",minBound,R) 
+		                 else if x == minBound then Just ("qf",minBound,R)
 		                 else Just ("q0",x,R)
 		delta ("q1",x) = if x == n then Just ("q0",n,R)
 		                 else if x == minBound then Nothing
@@ -69,3 +71,4 @@ evenTM n = TuringMachine "q0" minBound ["qf"] delta
 "cabababac" >?> evenTM 'b' = False
 "cabababac" >?> evenTM 'c' = True
 ```
+-->
