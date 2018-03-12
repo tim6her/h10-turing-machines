@@ -1,6 +1,8 @@
 # h10-turing-machines
 A simple simulator for Turing machines based on [hackage-turing-machines](https://github.com/jariazavalverde/hackage-turing-machines)
 
+[![Build Status](https://travis-ci.org/tim6her/h10-turing-machines.svg?branch=master)](https://travis-ci.org/tim6her/h10-turing-machines)
+
 
 ## Install
 ```

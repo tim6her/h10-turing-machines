@@ -18,6 +18,8 @@ synopsis:            A simple simulator of Turing machines
 -- A longer description of the package.
 -- description:
 
+description:        For a longer description of the package please visit https://tim6her.github.io/h10-turing-machines
+
 -- URL for the project homepage or repository.
 homepage:            https://github.com/tim6her/h10-turing-machines
 
@@ -48,6 +50,8 @@ extra-source-files:  ChangeLog.md, README.md
 -- Constraint on the version of Cabal needed to build this package.
 cabal-version:       >=1.10
 
+-- haskell-ci
+Tested-With: GHC == 8.0.2, GHC == 8.2.1
 
 library
   -- Modules exported by the library.
@@ -60,7 +64,7 @@ library
   -- other-extensions:
 
   -- Other library packages from which modules are imported.
-  build-depends:       base >=4.10 && <4.11
+  build-depends:       base >=4.6 && <5
 
   -- Directories containing source files.
   hs-source-dirs:      src
@@ -69,10 +73,15 @@ library
   default-language:    Haskell2010
 
 Test-Suite test-melody
+  default-language:   Haskell2010
   type:               exitcode-stdio-1.0
   main-is:            Main.hs
   hs-source-dirs:     test
-  build-depends:      base >=4.10 && <4.11,
+  build-depends:      base >=4.6 && <5,
                       tasty,
                       tasty-hunit,
                       h10-turing-machines
+
+source-repository head
+  type:     git
+  location: https://github.com/tim6her/h10-turing-machines

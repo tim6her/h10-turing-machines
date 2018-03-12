@@ -6,6 +6,7 @@
     Maintainer  : tim6her
     Stability   : experimental
     Portability : portable
+    Language    : Haskell2010
     GitHub      : https://github.com/tim6her/h10-turing-machines
 
     A Turing machine is an abstract machine that manipulates symbols
