@@ -11,7 +11,7 @@ caball install turing-machines
 ## Data Structures and Types
 ```haskell
 -- | Tape movements (Left | Right)
-data TapeMovement = L | R deriving (Show, Eq)
+type TapeMovement = Int
 
 -- | Transition Function
 --   state symbol => (state', symbol', mov)
@@ -26,7 +26,7 @@ data TuringMachine q s = TuringMachine {
 }
 ```
 ## Functions
-### (>>>)
+### `(>>>)`
 Run Turing machine to calculate.
 ```haskell
 (>>>) :: (Eq q, Eq s) => [s] -> TuringMachine q s -> Maybe [s]
@@ -49,11 +49,20 @@ addTM = TuringMachine "q0" 0 "qf" delta
 [1,1,0,1,1,1] >>> addTM = [1,1,1,1,1]
 ```
 
-### (>?>)
+### `(>?>)`
 Run Turing machine to recognise.
 ```haskell
 (>?>) :: (Eq q, Eq s) => [s] -> TuringMachine q s -> Bool
 ```
+
+### `(>.>)`
+Compose Turing machines
+```haskell
+(>.>) :: (Eq q, Eq s) => Maybe [s] ->
+                         TuringMachine q s ->
+                         Maybe [s]
+```
+
 <!--
 #### Example: even number of occurrences of some element
 ```haskell

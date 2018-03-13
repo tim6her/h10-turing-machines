@@ -19,7 +19,8 @@ module Automaton.TuringMachine (
   TapeMovement,
   toTransition,
   (>>>),
-  (>?>)
+  (>?>),
+  (>.>)
 ) where
 
 import Control.Exception
@@ -41,8 +42,14 @@ data TuringMachine q s = TuringMachine {
   getTransition :: Transition q s
 }
 
-toTransition :: (q -> s -> (q, s, TapeMovement)) -> Transition q s
-toTransition f state char = Just (f state char)
+-- | Transform a function to a transition function
+toTransition :: (Eq q) => (q -> s -> (q, s, TapeMovement)) ->
+                q -> -- error state
+                Transition q s
+toTransition f err state char
+  | q' == err = Nothing
+  | otherwise = Just (q', s', move)
+  where (q', s', move) = f state char
 
 -- | RUN
 
@@ -72,7 +79,12 @@ input >>> machine = run machine (getInitialState machine) [] input
 (>?>) :: (Eq q, Eq s) => [s] -> TuringMachine q s -> Bool
 input >?> machine = input >>> machine /= Nothing
 
-
+-- | Compose
+(>.>) :: (Eq q, Eq s) => Maybe [s] ->
+                         TuringMachine q s ->
+                         Maybe [s]
+Just xs >.> machine = xs >>> machine
+Nothing >.> _ = Nothing
 
 -- | AUXILIAR OPERATIONS
 

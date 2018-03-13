@@ -14,6 +14,7 @@ invert' "start" '§' = ("r", '§', 1)
 invert' "r" '0' = ("r", '1', 1)
 invert' "r" '1' = ("r", '0', 1)
 invert' "r" '_' = ("halt", '_', 0)
+invert' _q _s = ("error", '_', 0)
 
 addTM :: TuringMachine String Int
 addTM = TuringMachine "q0" 0 "qf" delta
@@ -26,15 +27,17 @@ addTM = TuringMachine "q0" 0 "qf" delta
     delta _q _s = Nothing
 
 turingInvert = TuringMachine "start" '_' "halt" invert
+turingInvert' = let delta = toTransition invert' "error"
+                in TuringMachine "start" '_' "halt" delta
 
 testTuring = testCase
   "Testing turingInvert" $
     assertEqual [] (Just "§01101101") ("§10010010" >>> turingInvert)
 
-testReverse = testCase
-  "Test that invert is self inverse" $
+testInvolution = testCase
+  "Test that invert is an involution" $
     assertEqual
-      [] (Just "§010111") ("§010111" >>> turingInvert >>= (>>> turingInvert))
+      [] (Just "§010111") ("§010111" >>> turingInvert >.> turingInvert)
 
 testAddTM1 = testCase
   "Test adding two numbers in tally notation - 1" $
@@ -51,13 +54,20 @@ testAddTM3 = testCase
     assertEqual
       [] (Just [1,1,1,1,1]) ([1,1,0,1,1,1] >>> addTM)
 
+testToTransition = testCase
+  "Test toTransition" $
+    assertEqual
+      [] ("§000111101" >>> turingInvert) ("§000111101" >>> turingInvert')
+
+
 unitTests =
   testGroup
     "Unit tests" [testTuring,
-                  testReverse,
+                  testInvolution,
                   testAddTM1,
                   testAddTM2,
-                  testAddTM3]
+                  testAddTM3,
+                  testToTransition]
 
 main :: IO ()
 main = defaultMain unitTests
