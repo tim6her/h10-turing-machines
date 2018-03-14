@@ -3,14 +3,9 @@ A simple simulator for Turing machines based on [hackage-turing-machines](https:
 
 [![Build Status](https://travis-ci.org/tim6her/h10-turing-machines.svg?branch=master)](https://travis-ci.org/tim6her/h10-turing-machines)
 
-
-## Install
-```
-caball install turing-machines
-```
 ## Data Structures and Types
 ```haskell
--- | Tape movements (Left | Right)
+-- | Tape movements
 type TapeMovement = Int
 
 -- | Transition Function
@@ -25,13 +20,18 @@ data TuringMachine q s = TuringMachine {
   getTransition :: Transition q s
 }
 ```
+
 ## Functions
+
 ### `(>>>)`
+
 Run Turing machine to calculate.
 ```haskell
 (>>>) :: (Eq q, Eq s) => [s] -> TuringMachine q s -> Maybe [s]
 ```
+
 #### Example: add two numbers in base-1
+
 ```haskell
 addTM :: TuringMachine String Int
 addTM = TuringMachine "q0" 0 "qf" delta
@@ -50,12 +50,14 @@ addTM = TuringMachine "q0" 0 "qf" delta
 ```
 
 ### `(>?>)`
+
 Run Turing machine to recognise.
 ```haskell
 (>?>) :: (Eq q, Eq s) => [s] -> TuringMachine q s -> Bool
 ```
 
 ### `(>.>)`
+
 Compose Turing machines
 ```haskell
 (>.>) :: (Eq q, Eq s) => Maybe [s] ->
